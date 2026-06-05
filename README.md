@@ -13,6 +13,7 @@ It provides a simple interface to **add** and **view** employee records through 
 
 ### Optional authentication layer
 The architecture can also be extended with **AWS Cognito** for secure user sign-in and access control.
+![AWS Serverless Employee Management Architecture](https://github.com/Bhattu-Sai-Praneeth/serverless-aws-employee-management-system/blob/main/Aws%20serverless%20emp-architecture.png?raw=true)
 
 ---
 
