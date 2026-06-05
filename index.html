@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Employee Data</title>
+
+
+<style>
+
+body {
+
+    background-color: #f0f8ff;
+    color: #333;
+    font-family: Arial, sans-serif;
+
+}
+
+
+h1 {
+
+    color: #007bff;
+    text-align:center;
+
+}
+
+
+.container {
+
+    max-width:600px;
+    margin:50px auto;
+    padding:25px;
+
+    background-color:white;
+
+    border-radius:10px;
+
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+
+}
+
+
+
+input[type="text"],
+input[type="submit"] {
+
+
+    width:100%;
+    padding:10px;
+
+    margin:8px 0;
+
+    box-sizing:border-box;
+
+    border:1px solid #ccc;
+
+    border-radius:5px;
+
+
+}
+
+
+
+input[type="submit"] {
+
+    background-color:#007bff;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+}
+
+
+
+input[type="submit"]:hover {
+
+    background-color:#0056b3;
+
+}
+
+
+
+
+table {
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:20px;
+
+}
+
+
+
+th,td {
+
+    padding:10px;
+
+    text-align:left;
+
+    border-bottom:1px solid #ddd;
+
+}
+
+
+
+th {
+
+    background-color:#007bff;
+
+    color:white;
+
+}
+
+
+#EmployeeSaved {
+
+    color:green;
+    font-weight:bold;
+
+}
+
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>Employee Data</h1>
+
+
+<label><b>Employee ID:</b></label>
+
+<input type="text" id="employeeid">
+
+
+
+<label><b>Name:</b></label>
+
+<input type="text" id="name">
+
+
+
+<label><b>Department:</b></label>
+
+<input type="text" id="department">
+
+
+
+<label><b>Salary:</b></label>
+
+<input type="text" id="salary">
+
+
+
+<input type="submit"
+value="Save Employee Data"
+onclick="saveEmployee()">
+
+
+
+<p id="EmployeeSaved"></p>
+
+
+
+<input type="submit"
+value="View All Employees"
+onclick="getEmployees()">
+
+
+
+
+
+<table id="EmployeeTable">
+
+
+<thead>
+
+<tr>
+
+<th>Employee ID</th>
+
+<th>Name</th>
+
+<th>Department</th>
+
+<th>Salary</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+</tbody>
+
+
+
+</table>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const API_ENDPOINT =
+"https://cjo6fuh7ma.execute-api.ap-south-1.amazonaws.com/employee-api";
+
+
+
+
+
+function saveEmployee(){
+
+
+
+let employee = {
+
+
+employeeid:
+document.getElementById("employeeid").value,
+
+
+name:
+document.getElementById("name").value,
+
+
+department:
+document.getElementById("department").value,
+
+
+salary:
+document.getElementById("salary").value
+
+
+};
+
+
+
+
+fetch(API_ENDPOINT,{
+
+
+method:"POST",
+
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+
+body:JSON.stringify(employee)
+
+
+})
+
+
+.then(response=>response.json())
+
+
+.then(data=>{
+
+
+document.getElementById("EmployeeSaved")
+.innerHTML="Employee Data Saved Successfully";
+
+
+})
+
+
+.catch(error=>{
+
+
+alert("Error saving Employee Data");
+
+
+console.log(error);
+
+
+});
+
+
+}
+
+
+
+
+
+
+
+function getEmployees(){
+
+
+
+fetch(API_ENDPOINT)
+
+
+.then(response=>response.json())
+
+
+.then(data=>{
+
+
+
+let table =
+document.querySelector("#EmployeeTable tbody");
+
+
+
+table.innerHTML="";
+
+
+
+data.forEach(emp=>{
+
+
+
+table.innerHTML += `
+
+
+<tr>
+
+
+<td>${emp.employeeid}</td>
+
+
+<td>${emp.name}</td>
+
+
+<td>${emp.department}</td>
+
+
+<td>${emp.salary}</td>
+
+
+</tr>
+
+
+`;
+
+
+
+});
+
+
+
+})
+
+
+.catch(error=>{
+
+
+alert("Error loading Employees");
+
+
+console.log(error);
+
+
+});
+
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
