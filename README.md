@@ -1,4 +1,4 @@
-# serverless-aws-employee-management-system
+# Serverless-aws-employee-management-system
 
 A serverless employee management application built on AWS.  
 This project uses **Amazon S3** for frontend hosting, **API Gateway** as the REST API layer, **AWS Lambda** for backend logic, and **Amazon DynamoDB** as the database.
